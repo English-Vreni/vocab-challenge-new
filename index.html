@@ -6,10 +6,112 @@
     <title>Day 1: 2-Week Vocab Adventure (Words 1-10)</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
+        .task { margin: 10px 0; }
+        .progress { width: 100%; background-color: #f0f0f0; }
+        .progress-bar { width: 0%; height: 20px; background-color: #4CAF50; text-align: center; color: white; }
+        input[type="checkbox"] { margin-right: 10px; }
     </style>
 </head>
 <body>
-    <h1>Test Page - It Works!</h1>
-    <p>This is a test to see if GitHub Pages loads correctly.</p>
+    <h1>Day 1: Start Your 2-Week Vocab Adventure! (Words 1-10)</h1>
+    <p>Welcome to our 2-week journey to learn 100 English words! Follow these tasks, check them off, and track your progress. Let’s go!</p>
+
+    <h3>Task List</h3>
+    <div class="task">
+        <input type="checkbox" id="task1" onchange="updateProgress()">
+        <label for="task1">Learn 10 New Words</label>
+        <p>Read the word list below and try saying them aloud!</p>
+        <ul>
+            <li>1. achieve – to do something successfully</li>
+            <li>2. adequate – enough or good enough</li>
+            <li>3. inadequate – not enough or not good enough</li>
+            <li>4. additional – extra or more</li>
+            <li>5. advertising – telling people about products</li>
+            <li>6. advertisement – a picture or message to sell something (like a poster)</li>
+            <li>7. affect – to change something</li>
+            <li>8. affordable – not too expensive</li>
+            <li>9. application form – a paper to fill out for a job or school</li>
+            <li>10. attract – to make someone interested</li>
+        </ul>
+    </div>
+
+    <div class="task">
+        <input type="checkbox" id="task2" onchange="updateProgress()">
+        <label for="task2">Play the Clue Game</label>
+        <p>Guess 3 words from clues. Type your answers in the box below!</p>
+        <p>Clues:</p>
+        <ul>
+            <li>Clue 1: "It’s something you fill out when you want a job." (Answer: application form)</li>
+            <li>Clue 2: "It’s extra or more of something." (Answer: additional)</li>
+            <li>Clue 3: "It’s not too expensive." (Answer: affordable)</li>
+        </ul>
+        <input type="text" id="clueAnswers" placeholder="Enter your 3 guesses (e.g., word1, word2, word3)">
+        <button onclick="checkClues()">Check Answers</button>
+    </div>
+
+    <div class="task">
+        <input type="checkbox" id="task3" onchange="updateProgress()">
+        <label for="task3">Make 2 Sentences</label>
+        <p>Use 2 of the words in simple sentences. Type them below!</p>
+        <textarea id="sentences" rows="3" placeholder="e.g., I fill an application form."></textarea>
+        <button onclick="checkSentences()">Check Sentences</button>
+    </div>
+
+    <div class="task">
+        <input type="checkbox" id="task4" onchange="updateProgress()">
+        <label for="task4">Take a Quick Quiz</label>
+        <p>Answer the question below!</p>
+        <p>Q1: What means "to do something successfully"? 
+            <input type="text" id="quizAnswer" placeholder="Your answer">
+            <button onclick="checkQuiz()">Submit</button>
+        </p>
+    </div>
+
+    <h3>Progress Tracker</h3>
+    <div>Progress: <span id="progressText">0/100 words (0%)</span></div>
+    <div class="progress">
+        <div id="progressBar" class="progress-bar">0%</div>
+    </div>
+
+    <script>
+        let tasksCompleted = 0;
+        const totalTasks = 4;
+
+        function updateProgress() {
+            tasksCompleted = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const percentage = (tasksCompleted / totalTasks) * 100;
+            document.getElementById('progressText').textContent = `${tasksCompleted * 25}/100 words (${percentage.toFixed(0)}%)`;
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressBar').textContent = `${percentage.toFixed(0)}%`;
+        }
+
+        function checkClues() {
+            const answers = document.getElementById('clueAnswers').value.toLowerCase().split(',').map(a => a.trim());
+            const correctAnswers = ['application form', 'additional', 'affordable'];
+            let correctCount = 0;
+            for (let i = 0; i < answers.length; i++) {
+                if (answers[i] === correctAnswers[i]) correctCount++;
+            }
+            alert(`You got ${correctCount}/3 correct! Answers: application form, additional, affordable. Try again if needed!`);
+        }
+
+        function checkSentences() {
+            const sentences = document.getElementById('sentences').value.toLowerCase();
+            if (sentences.includes('application form') || sentences.includes('affordable')) {
+                alert('Great job! Your sentences are on the right track!');
+            } else {
+                alert('Try using words like "application form" or "affordable" in your sentences!');
+            }
+        }
+
+        function checkQuiz() {
+            const answer = document.getElementById('quizAnswer').value.toLowerCase().trim();
+            if (answer === 'achieve') {
+                alert('Correct! "Achieve" means to do something successfully.');
+            } else {
+                alert('Not quite! The answer is "achieve". Try again!');
+            }
+        }
+    </script>
 </body>
 </html>
